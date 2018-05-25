@@ -17,3 +17,14 @@ func (p *Zpi) FindByHost(host string) []Data {
 	json.Unmarshal([]byte(v), &ds)
 	return ds
 }
+
+func (p *Zpi) GetByDescription(host, description string) Data {
+	p.api.Login()
+	ds := p.FindByHost(host)
+	for _, d := range ds {
+		if d["description"] == description {
+			return d
+		}
+	}
+	return Param()
+}
